@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Endereço - ViaCEP</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-map-pin"></i> Buscar Endereço</h1>
+                <p class="subtitle">Utilize seu CEP para encontrar dados do endereço automaticamente</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Status Message -->
+            <div id="statusMessage" class="status-message hidden"></div>
+
+            <!-- Form Section -->
+            <form id="addressForm" class="address-form">
+                <!-- Linha 1: CEP -->
+                <div class="form-group full-width">
+                    <label for="cep" class="label-required">
+                        <span class="label-text">CEP</span>
+                        <span class="label-helper">Ex: 01310100</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="cep" 
+                            name="cep" 
+                            placeholder="Digite seu CEP (apenas números)"
+                            maxlength="8"
+                            required
+                            aria-label="Campo de CEP"
+                        >
+                        <span id="cepLoader" class="loader hidden"></span>
+                    </div>
+                    <small id="cepError" class="error-text"></small>
+                </div>
+
+                <!-- Linha 2: Logradouro -->
+                <div class="form-group full-width">
+                    <label for="street" class="label-required">
+                        <span class="label-text">Logradouro</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="street" 
+                        name="logradouro"
+                        placeholder="Rua, Avenida, etc..."
+                        required
+                        disabled
+                        aria-label="Campo de logradouro"
+                    >
+                </div>
+
+                <!-- Linha 3: Número e Complemento -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="number" class="label-required">
+                            <span class="label-text">Número</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="number" 
+                            name="numero"
+                            placeholder="Ex: 123"
+                            required
+                            maxlength="10"
+                            aria-label="Número do endereço"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="complement">
+                            <span class="label-text">Complemento</span>
+                            <span class="label-optional">(Opcional)</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="complement" 
+                            name="complemento"
+                            placeholder="Apt, Sala, etc..."
+                            maxlength="100"
+                            aria-label="Complemento do endereço"
+                        >
+                    </div>
+                </div>
+
+                <!-- Linha 4: Bairro -->
+                <div class="form-group full-width">
+                    <label for="neighborhood">
+                        <span class="label-text">Bairro</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="neighborhood" 
+                        name="bairro"
+                        placeholder="Bairro"
+                        disabled
+                        aria-label="Campo de bairro"
+                    >
+                </div>
+
+                <!-- Linha 5: Cidade e Estado -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">
+                            <span class="label-text">Cidade</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="city" 
+                            name="cidade"
+                            placeholder="Cidade"
+                            disabled
+                            aria-label="Campo de cidade"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="state">
+                            <span class="label-text">Estado</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="state" 
+                            name="estado"
+                            placeholder="UF"
+                            maxlength="2"
+                            disabled
+                            aria-label="Campo de estado"
+                        >
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-actions">
+                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="btnText">Enviar</span>
+                        <span id="btnLoader" class="btn-loader hidden"></span>
+                    </button>
+                    <button type="reset" id="resetBtn" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i>
+                        Limpar Formulário
+                    </button>
+                </div>
+            </form>
+
+            <!-- Success Message -->
+            <div id="successSection" class="success-section hidden">
+                <div class="success-card">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Cadastro Realizado com Sucesso!</h2>
+                    <p id="successMessage"></p>
+                    <button type="button" id="newRegistrationBtn" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i>
+                        Novo Cadastro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Info Box - Nielsen's Heuristics -->
+            <section class="info-box">
+                <h3><i class="fas fa-lightbulb"></i> Como Funciona</h3>
+                <ul>
+                    <li><strong>1. Digite o CEP:</strong> Insira um CEP válido (8 dígitos, ex: 01310100)</li>
+                    <li><strong>2. Busca Automática:</strong> Os dados são buscados automaticamente na API ViaCEP</li>
+                    <li><strong>3. Preenchimento:</strong> O logradouro, bairro, cidade e estado são preenchidos automaticamente</li>
+                    <li><strong>4. Complete:</strong> Adicione o número e complemento (se houver)</li>
+                    <li><strong>5. Enviar:</strong> Clique em "Enviar" para gravar os dados no banco de dados</li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Sistema de Busca de Endereços. Desenvolvido com <i class="fas fa-heart"></i> utilizando ViaCEP API.</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+# ============================================
+# .gitignore - Arquivos a NUNCA commitar
+# ============================================
+
+# Arquivos de Configuração Sensível
+backend/config.php
+backend/config.local.php
+.env
+.env.local
+
+# Sistema Operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.c9/
+*.ece
+.rspec
+.byebug_history
+
+# Dependências (se usar npm/composer)
+node_modules/
+vendor/
+package-lock.json
+composer.lock
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Diretórios temporários
+tmp/
+temp/
+cache/
+.cache/
+
+# Backups de banco de dados
+*.sql.bak
+*.sql.backup
+*.db.bak
+*.db.backup
+
+# Arquivos de teste locais
+test-local.php
+test-*.php
+!test.php
+
+# Cache browser/CDN
+.htaccess.bak
+.htaccess.old
+
+# Compilados (se usar TypeScript, Less, etc)
+*.min.css
+*.min.js
+dist/
+build/
+
+# Variáveis de ambiente específicas do desenvolvedor
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Session files
+sessions/
+*.session
+
+# OS generated files
+.AppleDouble/
+.LSOverride/
+._*
+
+# Platform specific
+.windows
+.linux
+.mac
+
+# Diretórios sensíveis
+secure/
+private/
+credentials/
+
+# Exclusões gerais
+!.gitkeep
+!.gitignore
+!.htaccess
